@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-drop-email-column-from-users
+      author: Rustam
+      changes:
+        - dropColumn:
+            columnName: email
+            tableName: users
