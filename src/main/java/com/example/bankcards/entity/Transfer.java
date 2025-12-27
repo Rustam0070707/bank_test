@@ -1,11 +1,18 @@
 package com.example.bankcards.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "transfers")
 public class Transfer {
     @Id
@@ -26,12 +33,31 @@ public class Transfer {
     @Column(name = "created_at", nullable = false )
     private LocalDateTime createdAt;
 
+
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "VARCHAR(20) NOT NULL")
     private TransferStatus status;
 
     @Column(name = "reason", length = 255)
     private String reason;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Transfer transfer = (Transfer) o;
+        return Objects.equals(getId(), transfer.getId()) && Objects.equals(getFromCard(), transfer.getFromCard()) && Objects.equals(getToCard(), transfer.getToCard()) && Objects.equals(getAmount(), transfer.getAmount()) && Objects.equals(getCreatedAt(), transfer.getCreatedAt()) && getStatus() == transfer.getStatus() && Objects.equals(getReason(), transfer.getReason());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFromCard(), getToCard(), getAmount(), getCreatedAt(), getStatus(), getReason());
+    }
 
     // Getters and Setters
     public Long getId() {

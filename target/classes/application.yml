@@ -7,19 +7,20 @@
   - Настроить параметры безопасности и JWT.
   - Включить Swagger UI.
 
-
 server:
-      port: 8080
+  port: 8080
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/bank?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: rustam2005
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   security:
     user:
-     name: bank
-     password: 123asd123
+      name: bank
+      password: 123asd123
 
   jpa:
     hibernate:
@@ -32,3 +33,18 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
