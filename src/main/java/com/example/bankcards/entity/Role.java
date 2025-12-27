@@ -10,6 +10,6 @@ public enum Role {
     ADMIN;
 
     public List<GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+this.name()));
     }
 }

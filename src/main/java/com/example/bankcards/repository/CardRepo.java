@@ -1,5 +1,6 @@
 package com.example.bankcards.repository;
 
+import com.example.bankcards.dto.CardResponse;
 import com.example.bankcards.entity.Card;
 import com.example.bankcards.entity.CardStatus;
 import org.springframework.data.domain.Page;
@@ -8,16 +9,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Optional;
+
 @Repository
-public interface CardRepo extends JpaRepository<Card, Integer > {
+public interface CardRepo extends JpaRepository<Card, Long > {
 
-    Page<Card> findByStatus(CardStatus status, Pageable pageable);
+    Page<CardResponse> findByStatus(CardStatus status, Pageable pageable);
 
-    Page<Card> findByOwnerUsernameContainingIgnoreCase(String username, Pageable pageable);
+    Page<CardResponse> findByOwnerUsernameContainingIgnoreCase(String username, Pageable pageable);
 
-    Page<Card> findByStatusAndOwnerUsernameContainingIgnoreCase(
+    Page<CardResponse> findByStatusAndOwnerUsernameContainingIgnoreCase(
             CardStatus status,
             String username,
             Pageable pageable
     );
+
+
+
 }

@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,22 +34,22 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id.intValue())
+        return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public void deleteUserById(Long id) {
-        if (!userRepository.existsById(id.intValue())) {
+        if (!userRepository.existsById(id)) {
             throw new RuntimeException("User not found");
         }
-        userRepository.deleteById(id.intValue());
+        userRepository.deleteById(id);
     }
 
     // ================= AUTH =================
 
     public User register(RegisterRequest request) {
         User user = UserMapper.toUser(request);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setPassword(passwordEncoder.encode(request.password()));
         return userRepository.save(user);
     }
 
@@ -59,8 +60,8 @@ public class UserService {
                         request.password()
                 )
         );
-
-        return jwtService.generateToken(authentication.getName());
+User user = userRepository.findByUsername(request.username()).orElseThrow(() -> new RuntimeException("User not found"));
+        return jwtService.generateToken(authentication.getName(),user.getRole().name());
     }
 
     // ================= USER =================

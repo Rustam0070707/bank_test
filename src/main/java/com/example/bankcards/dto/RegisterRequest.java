@@ -7,15 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class RegisterRequest {
-    @NotNull(message = "Username is required")
-    @NotBlank(message = "Username is required")
-    private String username;
-    @NotNull(message = "Password is required")
-    @NotBlank(message = "Password is required")
-    private String password;
-}
+public record RegisterRequest(
+        String username,
+        String password
+) {}
+

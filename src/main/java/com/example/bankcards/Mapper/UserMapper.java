@@ -9,8 +9,8 @@ import lombok.Builder;
 public class UserMapper {
     public static User toUser(RegisterRequest request){
         return User.builder()
-                .username(request.getUsername())
-                .password(request.getPassword())
+                .username(request.username())
+                .password(request.password())
                 .role(Role.USER)
                 .build();
     }
