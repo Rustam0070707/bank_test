@@ -1,7 +1,7 @@
 package com.example.bankcards.Mapper;
 
 import com.example.bankcards.dto.RegisterRequest;
-import com.example.bankcards.entity.Role;
+import com.example.bankcards.enums.Role;
 import com.example.bankcards.entity.User;
 import lombok.Builder;
 

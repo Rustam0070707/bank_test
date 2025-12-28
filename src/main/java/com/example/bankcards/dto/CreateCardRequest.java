@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record CreateCardRequest(String cardNumber,
-                                LocalDate expirationDate,
-                                BigDecimal initialBalance,
+                                LocalDate expiryDate,
+                                BigDecimal balance,
                                 Long userId) {
 }

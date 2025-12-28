@@ -1,5 +1,6 @@
 package com.example.bankcards.entity;
 
+import com.example.bankcards.enums.CardStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,10 +21,10 @@ public class Card {
     private Long id;
 
     @Column(name = "encrypted_number", nullable = false, unique = true)
-    private String encryptedNumber; // хранится зашифрованно
+    private String encryptedNumber;
 
     @Column(name = "masked_number", nullable = false)
-    private String maskedNumber; // **** **** **** 1234
+    private String maskedNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
@@ -51,7 +52,7 @@ public class Card {
         return Objects.hash(getId(), getEncryptedNumber(), getMaskedNumber(), getOwner(), getExpiryDate(), getStatus(), getBalance());
     }
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

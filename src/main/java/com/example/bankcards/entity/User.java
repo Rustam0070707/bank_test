@@ -1,5 +1,6 @@
 package com.example.bankcards.entity;
 
+import com.example.bankcards.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private String password;  // хранится в зашифрованном виде (BCrypt)
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(20) NOT NULL")
@@ -39,7 +40,7 @@ public class User {
         return Objects.hash(getId(), getUsername(), getPassword(), getRole());
     }
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

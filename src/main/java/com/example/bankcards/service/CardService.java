@@ -4,7 +4,7 @@ import com.example.bankcards.Mapper.CardMapper;
 import com.example.bankcards.dto.CardResponse;
 import com.example.bankcards.dto.CreateCardRequest;
 import com.example.bankcards.entity.Card;
-import com.example.bankcards.entity.CardStatus;
+import com.example.bankcards.enums.CardStatus;
 import com.example.bankcards.entity.User;
 import com.example.bankcards.exception.AccessDeniedException;
 import com.example.bankcards.exception.CardNotFoundException;
@@ -18,12 +18,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CardService {
@@ -40,14 +37,13 @@ public class CardService {
     }
 
     public CardResponse createCard(CreateCardRequest request) {
-        System.out.println(request.userId());
-User owner = userRepo.findById(request.userId()).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User owner = userRepo.findById(request.userId()).orElseThrow(() -> new UserNotFoundException("User not found"));
  Card card = new Card();
  card.setOwner(owner);
  card.setMaskedNumber(cardMaskUtil.mask(request.cardNumber()));
 card.setEncryptedNumber(cardCryptoUtil.encrypt(request.cardNumber()));
- card.setExpiryDate(request.expirationDate());
- card.setBalance(request.initialBalance());
+ card.setExpiryDate(request.expiryDate());
+ card.setBalance(request.balance());
  card.setStatus(CardStatus.ACTIVE);
 
        Card saved =  cardRepo.save(card);

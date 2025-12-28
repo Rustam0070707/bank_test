@@ -1,13 +1,13 @@
 package com.example.bankcards.dto;
 
-import com.example.bankcards.entity.CardStatus;
+import com.example.bankcards.enums.CardStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record CardResponse(Long id,
-                           String maskedCardNumber,
-                           LocalDate expirationDate,
+                           String maskedNumber,
+                           LocalDate expiryDate,
                            CardStatus status,
                            BigDecimal balance) {
 }

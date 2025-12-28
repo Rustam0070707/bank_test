@@ -5,9 +5,8 @@ import com.example.bankcards.dto.LoginRequest;
 import com.example.bankcards.dto.RegisterRequest;
 import com.example.bankcards.entity.User;
 import com.example.bankcards.repository.UserRepo;
+import com.example.bankcards.security.JWTService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +25,7 @@ public class UserService {
     private final JWTService jwtService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    // ================= ADMIN =================
+
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -45,7 +43,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    // ================= AUTH =================
+
 
     public User register(RegisterRequest request) {
         User user = UserMapper.toUser(request);
@@ -64,7 +62,7 @@ User user = userRepository.findByUsername(request.username()).orElseThrow(() -> 
         return jwtService.generateToken(authentication.getName(),user.getRole().name());
     }
 
-    // ================= USER =================
+
 
     public User getMyInfo(String username) {
         return userRepository.findByUsername(username)

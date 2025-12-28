@@ -1,5 +1,6 @@
 package com.example.bankcards.entity;
 
+import com.example.bankcards.enums.TransferStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,7 +60,7 @@ public class Transfer {
         return Objects.hash(getId(), getFromCard(), getToCard(), getAmount(), getCreatedAt(), getStatus(), getReason());
     }
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

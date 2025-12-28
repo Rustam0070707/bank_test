@@ -23,7 +23,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    // ================= ADMIN =================
+
 
     @GetMapping("/getAllUsers")
     @PreAuthorize("hasRole('ADMIN')")
@@ -44,7 +44,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    // ================= PUBLIC =================
+
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@Valid @RequestBody RegisterRequest request) {
@@ -56,7 +56,7 @@ public class UserController {
         return ResponseEntity.ok(userService.login(request));
     }
 
-    // ================= USER =================
+
 
     @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")
